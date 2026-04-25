@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samu Ncube — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0e0e0e;
+    --off-white: #f5f2ed;
+    --warm: #e8e0d4;
+    --accent: #c4783a;
+    --accent-light: #f0e4d4;
+    --text: #1a1a1a;
+    --muted: #7a7268;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--off-white);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--black);
+    color: var(--off-white);
+    padding: 80px 60px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -60px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,120,58,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header-label {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 7vw, 80px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.2s;
+  }
+
+  .header-desc {
+    font-size: 16px;
+    color: rgba(245,242,237,0.65);
+    max-width: 520px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.35s;
+  }
+
+  .header-links {
+    display: flex;
+    gap: 24px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.45s;
+  }
+
+  .header-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(196,120,58,0.3);
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+  }
+
+  .header-links a:hover { border-color: var(--accent); }
+
+  /* NAV */
+  nav {
+    background: var(--black);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 0 60px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.55s;
+  }
+
+  nav a {
+    color: rgba(245,242,237,0.5);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 16px 20px 14px;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  nav a:hover { color: var(--off-white); border-bottom-color: var(--accent); }
+
+  /* MAIN */
+  main { max-width: 1100px; margin: 0 auto; padding: 0 60px 100px; }
+
+  /* SECTION */
+  .section {
+    padding: 80px 0 0;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .section.visible { opacity: 1; transform: translateY(0); }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .section-intro {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 600px;
+    margin-bottom: 48px;
+  }
+
+  /* FEATURED CARD */
+  .featured-card {
+    background: var(--black);
+    color: var(--off-white);
+    border-radius: 4px;
+    padding: 52px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .featured-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(196,120,58,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .card-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+
+  .featured-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .featured-card p {
+    font-size: 15px;
+    color: rgba(245,242,237,0.7);
+    max-width: 580px;
+    margin-bottom: 28px;
+    line-height: 1.75;
+  }
+
+  .metrics {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+    padding: 24px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .metric { }
+
+  .metric-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .metric-label {
+    font-size: 11px;
+    color: rgba(245,242,237,0.45);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .role-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .role-tag {
+    background: rgba(255,255,255,0.07);
+    color: rgba(245,242,237,0.6);
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
+
+  .btn {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    border-radius: 2px;
+    transition: opacity 0.2s;
+    margin-right: 12px;
+    margin-top: 4px;
+  }
+
+  .btn:hover { opacity: 0.85; }
+
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(245,242,237,0.2);
+    color: rgba(245,242,237,0.7);
+  }
+
+  .btn-ghost:hover { border-color: rgba(245,242,237,0.5); opacity: 1; }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+  @media (max-width: 760px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* CARD */
+  .card {
+    background: white;
+    border-radius: 4px;
+    padding: 36px;
+    border: 1px solid var(--warm);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 24px rgba(196,120,58,0.08);
+  }
+
+  .card-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .card a {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(196,120,58,0.3);
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+  }
+
+  .card a:hover { border-color: var(--accent); }
+
+  /* SERIES STRIP */
+  .series-strip {
+    background: var(--accent-light);
+    border-radius: 4px;
+    padding: 40px 48px;
+    margin-bottom: 24px;
+    border-left: 3px solid var(--accent);
+  }
+
+  .series-strip h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .series-strip p {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 580px;
+    margin-bottom: 24px;
+  }
+
+  .series-links { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  .series-link {
+    background: white;
+    border: 1px solid var(--warm);
+    border-radius: 3px;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .series-link:hover {
+    border-color: var(--accent);
+    box-shadow: 0 2px 8px rgba(196,120,58,0.1);
+  }
+
+  .series-link span { color: var(--accent); font-weight: 700; }
+
+  /* VIDEO GRID */
+  .video-card {
+    background: var(--black);
+    border-radius: 4px;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .video-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+  }
+
+  .video-thumb {
+    background: #1a1a1a;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .play-btn {
+    width: 48px; height: 48px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .play-btn svg { width: 18px; height: 18px; fill: white; margin-left: 3px; }
+
+  .video-info {
+    padding: 20px 24px;
+  }
+
+  .video-info p {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--off-white);
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+
+  .video-info span {
+    font-size: 11px;
+    color: rgba(245,242,237,0.35);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--warm);
+    margin: 0;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    color: rgba(245,242,237,0.4);
+    text-align: center;
+    padding: 40px 60px;
+    font-size: 13px;
+    margin-top: 100px;
+  }
+
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 700px) {
+    header, nav { padding-left: 24px; padding-right: 24px; }
+    main { padding-left: 24px; padding-right: 24px; }
+    .featured-card { padding: 32px 24px; }
+    .metrics { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">Content Strategy & Events Portfolio</div>
+  <h1>Samu Ncube</h1>
+  <p class="header-desc">I create narratives that shape brand positioning and build high-impact event experiences. 10+ years. Amazon Ads Canada. Self-published author. Founder.</p>
+  <div class="header-links">
+    <a href="https://linkedin.com/in/thesamuncube" target="_blank">LinkedIn</a>
+    <a href="https://thethreadmedia.org" target="_blank">The Thread Media</a>
+    <a href="mailto:samukele.ncu@gmail.com">samukele.ncu@gmail.com</a>
+  </div>
+</header>
+
+<nav>
+  <a href="#events">Events</a>
+  <a href="#trade">Trade Media</a>
+  <a href="#case-studies">Case Studies</a>
+  <a href="#campaigns">Campaigns</a>
+</nav>
+
+<main>
+
+  <!-- EVENTS -->
+  <section class="section" id="events">
+    <div class="section-label">Flagship Events</div>
+    <h2 class="section-title">Event Content, End to End</h2>
+    <p class="section-intro">From strategy and narrative through scripting, speaker management, and post-event amplification. Every touchpoint, owned.</p>
+
+    <div class="featured-card">
+      <span class="card-tag">Featured Work</span>
+      <h3>unBoxed Toronto 2026</h3>
+      <p>Amazon Ads Canada's flagship advertiser event. In 2026 I stepped up from breakout lead to full event content ownership — co-owning the event strategy presented to L8 leaders, scripting the keynote and all three breakouts, directing agency visuals, and managing 20+ speakers including C-suite executives, Amazon senior leaders, and external customer speakers end to end.</p>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-number">4.5/5</div>
+          <div class="metric-label">Content Score</div>
+        </div>
+        <div class="metric">
+          <div class="metric-number">204</div>
+          <div class="metric-label">Meetings Influenced</div>
+        </div>
+        <div class="metric">
+          <div class="metric-number">150%</div>
+          <div class="metric-label">Lift vs Baseline</div>
+        </div>
+        <div class="metric">
+          <div class="metric-number">82%</div>
+          <div class="metric-label">Included DSP Pitches</div>
+        </div>
+      </div>
+
+      <div class="role-tags">
+        <span class="role-tag">Event Content Strategy</span>
+        <span class="role-tag">Keynote Scripting</span>
+        <span class="role-tag">Speaker Management</span>
+        <span class="role-tag">Agency Direction</span>
+        <span class="role-tag">Post-Event Amplification</span>
+      </div>
+
+      <a href="https://www.amazonadvertisingevents.com/unboxedtoronto2026/agenda" target="_blank" class="btn">View Agenda</a>
+      <a href="https://advertising.amazon.com/library/news/unboxed-toronto-2026" target="_blank" class="btn btn-ghost">Event Recap</a>
+    </div>
+
+    <div class="featured-card" style="background:#1a1512;">
+      <span class="card-tag">Multi-Market</span>
+      <h3>Upfront with Amazon — Canada, Australia & Mexico</h3>
+      <p>The only person on the RBM team to deliver content for three regional Upfronts in a single year. Canada's inaugural Upfront was built without a historical playbook, no global guidance, and under the full weight of the Canadian advertising industry watching. After all three, I synthesized the learnings into a content playbook now rolling out across all eight global markets.</p>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-number">4.7/5</div>
+          <div class="metric-label">Canada CSAT</div>
+        </div>
+        <div class="metric">
+          <div class="metric-number">61%</div>
+          <div class="metric-label">Intent Lift</div>
+        </div>
+        <div class="metric">
+          <div class="metric-number">4.4/5</div>
+          <div class="metric-label">Australia CSAT</div>
+        </div>
+        <div class="metric">
+          <div class="metric-number">70%</div>
+          <div class="metric-label">Playbook Time Saving</div>
+        </div>
+      </div>
+
+      <div class="role-tags">
+        <span class="role-tag">Keynote Narrative</span>
+        <span class="role-tag">Speaker Prep</span>
+        <span class="role-tag">Cross-Regional</span>
+        <span class="role-tag">Scalable Frameworks</span>
+      </div>
+
+      <p style="font-size:13px; color:rgba(245,242,237,0.45); margin-top:4px;">Australia Upfront described by B&T as "punchy, compelling" — media buyers praised "the brevity and clarity of Amazon's proposition."</p>
+    </div>
+  </section>
+
+  <hr class="divider" style="margin-top:80px;">
+
+  <!-- TRADE MEDIA -->
+  <section class="section" id="trade">
+    <div class="section-label">Trade Media</div>
+    <h2 class="section-title">The Amazon Ads x Campaign Canada Partnership</h2>
+    <p class="section-intro">I built and own the Amazon Ads hub on Campaign Canada, evolving the relationship from transactional placements into a strategic editorial partnership. In 2025 this partnership delivered 226K+ impressions, with 57% of readers (85% Manager+) significantly enjoying the content.</p>
+
+    <div class="series-strip">
+      <div class="card-label">Content Hub</div>
+      <h3>The Amazon Ads Hub on Campaign Canada</h3>
+      <p>A dedicated home for all Amazon Ads x Campaign Canada content — case studies, thought leadership, video series, and sponsored features. Conceived, pitched, and built by me as a mechanism for compounding reach beyond individual placements.</p>
+      <div class="series-links">
+        <a href="https://www.campaigncanada.ca/amazonads" target="_blank" class="series-link"><span>→</span> View the Hub</a>
+      </div>
+    </div>
+
+    <div class="series-strip">
+      <div class="card-label">3-Part Editorial Series</div>
+      <h3>Age Is Just a Number: Why Brands Must Look Beyond the Generational Divide</h3>
+      <p>A custom editorial series running as lead-up content into unBoxed Toronto 2026. Each installment featured a different brand and format, building toward a culminating immersive piece. Strategy, briefs, and creative direction owned end to end.</p>
+      <div class="series-links">
+        <a href="https://www.campaigncanada.ca/article/from-toronto-streets-to-td-s-strategy-community-is-the-real-connector/4e0yx81xks02g338zh6ac3q5mf" target="_blank" class="series-link"><span>01</span> TD Insurance: Community Is the Real Connector</a>
+        <a href="https://www.campaigncanada.ca/article/video-dairy-queen-shows-why-shared-entertainment-values-and-interest-fuel-connection/4hyrnjr9w97bx1d5skdk1tg3mz" target="_blank" class="series-link"><span>02</span> Dairy Queen: Shared Entertainment Fuels Connection</a>
+        <a href="https://www.campaigncanada.ca/article/age-is-just-a-number-why-brands-must-look-beyond-the-generational-divide/4jb92s7gvtgt1wjktsrkb5f3xt" target="_blank" class="series-link"><span>03</span> The Immersive: Beyond the Generational Divide</a>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">Trade Feature</div>
+        <h3>How Pet Valu Fetched Attention with Amazon Ads</h3>
+        <p>Campaign Canada speaks with Pet Valu's VP of Marketing and True Media Strategy Director on connecting with pet lovers through Fire TV and Prime Video — featuring creative that felt organic to both the medium and the audience.</p>
+        <a href="https://www.campaigncanada.ca/article/how-pet-valu-fetched-attention-with-amazon-ads/43vfnjahqzpb8ymxq5d6p3x4dn" target="_blank">Read on Campaign Canada →</a>
+      </div>
+      <div class="card">
+        <div class="card-label">Amazon Ads Library</div>
+        <h3>unBoxed Toronto 2026 Recap</h3>
+        <p>Post-event recap published on Amazon's owned channel, extending the event narrative beyond the stage and into the broader industry conversation.</p>
+        <a href="https://advertising.amazon.com/library/news/unboxed-toronto-2026" target="_blank">Read on Amazon Ads →</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" style="margin-top:80px;">
+
+  <!-- CASE STUDIES -->
+  <section class="section" id="case-studies">
+    <div class="section-label">Case Study Videos</div>
+    <h2 class="section-title">Video Production, End to End</h2>
+    <p class="section-intro">I built Canada's video case study program from scratch — designing the customer intake mechanism, managing external production agencies, directing shoots, and owning post-production. Six case studies produced in 2025, distributed across 20+ touchpoints.</p>
+
+    <div class="grid-2" style="margin-bottom:20px;">
+      <a href="https://www.youtube.com/watch?v=C0eRy3UBpLw" target="_blank" class="video-card">
+        <div class="video-thumb">
+          <div class="play-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="video-info">
+          <p>Hyundai Auto Canada</p>
+          <span>Prime Video + Fire TV Case Study</span>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=jtydNj0wfA4" target="_blank" class="video-card">
+        <div class="video-thumb">
+          <div class="play-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="video-info">
+          <p>Pet Valu</p>
+          <span>Fire TV + Prime Video Case Study</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">Amazon Ads Library</div>
+        <h3>TD Insurance for Business</h3>
+        <p>Case study developed in close partnership with the SVP of TD Insurance and Managing Director at Starcom. Content strategy contributed to a 3,900% YoY increase in their Amazon Ads investment.</p>
+        <a href="https://advertising.amazon.com/library/case-studies/td-insurance-for-business" target="_blank">Read Case Study →</a>
+      </div>
+      <div class="card">
+        <div class="card-label">Amazon Ads Library</div>
+        <h3>Dairy Queen Canada</h3>
+        <p>Case study featured as part of the Age Is Just a Number editorial series and distributed across trade media, owned channels, and events.</p>
+        <a href="https://advertising.amazon.com/library/case-studies/dairy-queen-canada" target="_blank">Read Case Study →</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" style="margin-top:80px;">
+
+  <!-- CAMPAIGNS -->
+  <section class="section" id="campaigns">
+    <div class="section-label">Campaigns & Thought Leadership</div>
+    <h2 class="section-title">Content That Scales Beyond the Stage</h2>
+    <p class="section-intro">Event content doesn't end when the event does. I build lead-in and lead-out strategies that extend a single narrative across touchpoints — trade media, owned channels, executive LinkedIn, and sales enablement.</p>
+
+    <div class="featured-card">
+      <span class="card-tag">Paid Campaign</span>
+      <h3>Canada & Mexico Executive LinkedIn Campaign</h3>
+      <p>The first regional paid LinkedIn campaign across Canada and Mexico. I created the project brief, developed creative for six executives (two creatives per exec), and project managed execution across both markets. Content was rooted in event narratives and customer stories, making leadership voices the vehicle for brand messaging.</p>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-number">1.4M</div>
+          <div class="metric-label">Impressions</div>
+        </div>
+        <div class="metric">
+          <div class="metric-number">400K+</div>
+          <div class="metric-label">Video Views</div>
+        </div>
+        <div class="metric">
+          <div class="metric-number">2</div>
+          <div class="metric-label">Markets</div>
+        </div>
+        <div class="metric">
+          <div class="metric-number">6</div>
+          <div class="metric-label">Executives</div>
+        </div>
+      </div>
+
+      <p style="font-size:13px; color:rgba(245,242,237,0.5); line-height:1.6;">Sample post: Chantal Rossi Badia (Head of VSS, ICAA) on brand-community alignment at Future of TV Advertising Canada, featuring the Hyundai x NHL Prime Video case study.</p>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <p>Samu Ncube &nbsp;·&nbsp; <a href="mailto:samukele.ncu@gmail.com">samukele.ncu@gmail.com</a> &nbsp;·&nbsp; <a href="https://thethreadmedia.org" target="_blank">thethreadmedia.org</a></p>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
